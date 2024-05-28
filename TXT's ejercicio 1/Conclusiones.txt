@@ -1,0 +1,67 @@
+Informe de Hallazgos y Conclusiones del Ejercicio de Prueba Funcional Automatizada (Prueba E2E)
+Introducción
+Se realizó una prueba funcional automatizada en el sitio web de OpenCart (http://opencart.abstracta.us/) con el objetivo de validar el flujo de compra. La prueba incluyó las siguientes etapas:
+
+Agregar dos productos al carrito.
+Visualizar el carrito.
+Completar el proceso de compra como invitado (Guest Checkout).
+Finalizar la compra hasta la confirmación ("Your order has been placed!").
+
+Herramientas Utilizadas
+Para llevar a cabo este ejercicio se utilizó:
+IntelliJ IDEA 2024.1.1 (Community Edition)
+Java Development Kit (JDK) 22
+Selenium WebDriver
+Maven 3.9.6
+El código fuente del proyecto de prueba está disponible en el siguiente repositorio de GitHub: Proyecto OpenCart en GitHub.
+
+Descripción del Proceso
+Configuración del Entorno:
+Se configuró el entorno de pruebas siguiendo las instrucciones detalladas en el archivo README adjunto. La configuración incluyó la instalación de IntelliJ IDEA, la configuración de Maven y la inclusión del proyecto OpenCart en el entorno de desarrollo.
+
+Ejecución de la Prueba:
+La prueba se ejecutó siguiendo los pasos especificados:
+
+Se accedió al sitio web de OpenCart.
+Se agregaron dos productos distintos al carrito.
+Se visualizó el carrito para verificar los productos agregados.
+Se procedió al checkout como invitado, llenando los datos requeridos.
+Se finalizó la compra y se confirmó la orden.
+
+Hallazgos
+
+Durante la ejecución de la prueba, se observó un comportamiento particular en la validación del ingreso de la cantidad de productos en el carrito:
+Entrada de Caracteres Alfabéticos en la Cantidad del Producto:
+Se detectó que es posible ingresar letras en el campo de cantidad de productos. Al intentar agregar el producto al carrito con una cantidad no numérica, el sistema muestra el mensaje "Success: You have added MacBook to your shopping cart!", aunque el producto no se añade al carrito (Se adjunta en GIT las imágines con el respaldo. Archivo Respaldo Hallazgos.docx).
+
+Al realizar el checkout, se detectó que el valor total de los productos más el cargo de envío fijo no es calculado correctamente. Por ejemplo:
+La compra de un iPhone y una MacBook Pro tiene un subtotal de $2,123.20.
+Con un cargo de envío fijo de $5.00, el total debería ser $2,128.2.
+Sin embargo, el valor total parcial mostrado es de $2,101.20 y el valor Total $2,106.00, lo cual es incorrecto. (Se adjunta en el repositorio GIT el archivo Respaldo Hallazgo Valores.docx)
+
+
+Conclusiones
+
+Necesidad de Corrección en el Cálculo del Total del Pedido en un caso puntual:
+El error encontrado en el cálculo del total del pedido es considerable, ya que puede generar desconfianza en los usuarios y pérdidas económicas para el negocio. Es necesario investigar y corregir este problema para asegurar la exactitud de las transacciones.
+
+Necesidad de Validación de Entrada en la Cantidad de Productos:
+El error encontrado en la validación de la cantidad de productos es significativo, ya que permite ingresar datos no numéricos que resultan en una experiencia de usuario inconsistente. Es necesario implementar una validación adecuada para asegurar que solo se ingresen valores numéricos en el campo de cantidad.
+
+Correcta Ejecución del Flujo de Prueba:
+A pesar del hallazgo mencionado, el flujo de prueba se ejecuta correctamente hasta la finalización de la compra y la confirmación del pedido con los dato numéricos digitados en la cantidad. 
+
+Recomendaciones:
+
+Revisar la lógica de cálculo del total en el carrito de compras, asegurando que se sumen correctamente los precios unitarios de los productos y el cargo de envío en los casos puntuales.
+
+Implementar validaciones en el frontend para restringir la entrada en el campo de cantidad a solo valores numéricos.
+Mostrar mensajes de error claros cuando se ingresen datos no válidos en lugar de mensajes de éxito no reales.
+
+Implementar pruebas adicionales para validar la corrección del problema y asegurar que no existan otros errores relacionados en diferentes escenarios de compra.
+
+Anexos
+Instrucciones de configuración del entorno de pruebas detalladas en el archivo README.
+Scripts de prueba utilizados en la ejecución de la prueba funcional automatizada.
+Código fuente del proyecto de prueba en GitHub.
+Con estos hallazgos y conclusiones, se espera mejorar la funcionalidad y fiabilidad del sitio web de OpenCart, proporcionando una mejor experiencia de usuario y asegurando transacciones precisas.
